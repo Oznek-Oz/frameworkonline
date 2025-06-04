@@ -1,0 +1,10 @@
+# Chemin pour la conversion
+http://localhost:8080/api/conversion/convert?from=[deviseSource]&to=[deviseCible]&montant=[montant]
+
+# Chemin pour accéder à l'historique des conversions
+http://localhost:8080/api/conversion/history
+
+# Chemin pour accéder à la liste des devises
+http://localhost:8080/api/devise/liste
+
+Pourquoi le repository est une interface et non une classe ?
