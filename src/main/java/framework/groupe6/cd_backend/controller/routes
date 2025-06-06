@@ -8,3 +8,13 @@ http://localhost:8080/api/conversion/history
 http://localhost:8080/api/devise/liste
 
 Pourquoi le repository est une interface et non une classe ?
+
+le fait est que les devises ne sont pas en format json
+ @GetMapping(path = "liste", produces = APPLICATION_JSON_VALUE)
+    public List<Devise> listeDevise(){
+        System.out.println("Liste des devises");
+        deviseServices.saveDevise();
+
+        return deviseServices.getAllDevise();
+    }
+c'est une liste

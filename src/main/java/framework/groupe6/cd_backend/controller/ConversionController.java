@@ -20,7 +20,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
         name = "Conversion API",
         description = "Permet de convertir les devises et consulter l'historique"
 )
-@CrossOrigin(origins = "https://frontend.com")
+//@CrossOrigin(origins = {"http://localhost:5173", "http://192.168.43.92:5173"})
 @RestController //Permet aux méthodes de retourner des objects JSON
 @RequestMapping(path = "conversion") //racine de l'API
 public class ConversionController {

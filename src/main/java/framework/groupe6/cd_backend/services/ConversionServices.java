@@ -37,12 +37,11 @@ public class ConversionServices {
         }
 
         String url = API_URL + "?from=" + from + "&to=" + to + "&amount=" + montant;
-        //logger.info("URL appelée : {}", url);
+
         System.out.println("URL appelée : {}" + url);
 
         Map response = restTemplate.getForObject(url, Map.class);
 
-        //logger.info("Réponse API : {}", response);
         System.out.println("URL appelée : {}" + response);
 
         if (response == null || !response.containsKey("rates")){
@@ -71,7 +70,19 @@ public class ConversionServices {
                 LocalDateTime.now()
         );
 
-        return conversionRepository.save(conversion);
+        saveConversion(conversion);
+        return conversion;
+    }
+
+    private void saveConversion (Conversion conversion){
+        conversionRepository.save(conversion);
+
+        long count = conversionRepository.count();
+        System.out.println("Le compte est: "+ count);
+        if (count > 15){
+            List<Conversion> toDelete = conversionRepository.findTop5ByOrderByDateConversionAsc();
+            conversionRepository.deleteAll(toDelete);
+        }
     }
 
     public List<Conversion> getAllConversions() {
