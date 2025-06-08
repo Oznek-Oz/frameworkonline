@@ -12,9 +12,11 @@ public class CorsConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                //WebMvcConfigurer.super.addCorsMappings(registry);
+                
                 registry.addMapping("/**")
-                        .allowedOrigins("https://tpe-framework-groupe10-16-convertonli.netlify.app" , "http://localhost:5173")
+                        .allowedOrigins("http://192.168.248.135:5173",
+                                "http://localhost:5173",
+                                "https://tpe-framework-groupe10-16-convertonli.netlify.app")
                         .allowedMethods("GET")
                         .allowedHeaders("*");
             }

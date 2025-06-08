@@ -24,7 +24,7 @@ public class ConversionServices {
         this.restTemplate = new RestTemplate(); //Dépendance pour appeler l'API externe
     }
 
-    public Conversion convert(String from, String to, double montant){
+    public Conversion convert(String from, String to, double montant, String userID){
 
         String API_URL = "https://api.frankfurter.app/latest";
 
@@ -67,7 +67,8 @@ public class ConversionServices {
                 montant,
                 result,
                 taux,
-                LocalDateTime.now()
+                LocalDateTime.now(),
+                userID
         );
 
         saveConversion(conversion);
@@ -77,10 +78,14 @@ public class ConversionServices {
     private void saveConversion (Conversion conversion){
         conversionRepository.save(conversion);
 
-        long count = conversionRepository.count();
-        System.out.println("Le compte est: "+ count);
+        long count = conversionRepository.findByUserID(conversion.getUserID()).size();
+        System.out.println("Conversion de :'" + conversion.getUserID() +"' : " + count);
         if (count > 15){
-            List<Conversion> toDelete = conversionRepository.findTop5ByOrderByDateConversionAsc();
+            List<Conversion> toDelete = conversionRepository
+                    .findTop5ByOrderByDateConversionAsc()
+                    .stream()
+                    .filter(c -> c.getUserID().equals(conversion.getUserID()))
+                    .toList();
             conversionRepository.deleteAll(toDelete);
         }
     }
@@ -89,6 +94,9 @@ public class ConversionServices {
         return conversionRepository.findAll();
     }
 
+    public List<Conversion> getConversionsByUserId(String userID){
+        return conversionRepository.findByUserID(userID);
+    }
 
     public void creer(Conversion conversion) {
         conversionRepository.save(conversion);

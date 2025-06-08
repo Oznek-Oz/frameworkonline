@@ -10,6 +10,16 @@ public class Conversion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    private String userID;
     private String deviseSource;
     private String deviseCible;
     private double montantSource;
@@ -43,6 +53,17 @@ public class Conversion {
         this.montantSource = montant;
         this.montantConverti = result;
         this.dateConversion = now;
+    }
+    public Conversion(String from, String to, double montant,
+                      double result, double taux, LocalDateTime now, String userID)
+    {
+        this.deviseSource = from;
+        this.deviseCible = to;
+        this.taux = taux;
+        this.montantSource = montant;
+        this.montantConverti = result;
+        this.dateConversion = now;
+        this.userID = userID;
     }
 
 
