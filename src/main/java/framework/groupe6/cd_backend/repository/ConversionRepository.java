@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ConversionRepository  extends JpaRepository<Conversion, Long> {
     List<Conversion> findTop5ByOrderByDateConversionAsc();
+    List<Conversion> findByUserID(String userID);
 }

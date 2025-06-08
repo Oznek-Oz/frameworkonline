@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+import javax.swing.plaf.PanelUI;
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -51,9 +52,11 @@ public class ConversionController {
 
             @PositiveOrZero
             @Positive(message = "Le montant doit être strictement positif")
-            @RequestParam double montant
+            @RequestParam double montant,
+
+            @RequestParam String userID
     ){
-        return conversionServices.convert(from,to,montant);
+        return conversionServices.convert(from,to,montant,userID);
     }
 
     @Operation(summary = "Obtenir l'historique des conversions")
@@ -61,4 +64,11 @@ public class ConversionController {
     public List<Conversion> getHistory(){
         return conversionServices.getAllConversions();
     }
+
+    @Operation(summary = "Obtenir l'historique des conversions d'un utilisateur")
+    @GetMapping(path = "history/user", produces = APPLICATION_JSON_VALUE)
+    public List<Conversion> getUserHistory(@RequestParam String userID) {
+        return conversionServices.getConversionsByUserId(userID);
+    }
 }
+

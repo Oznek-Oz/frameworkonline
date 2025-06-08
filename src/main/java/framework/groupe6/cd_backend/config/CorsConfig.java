@@ -14,7 +14,9 @@ public class CorsConfig {
             public void addCorsMappings(CorsRegistry registry) {
                 //WebMvcConfigurer.super.addCorsMappings(registry);
                 registry.addMapping("/**")
-                        .allowedOrigins("http://192.168.248.135:5173" , "http://localhost:5173")
+                        .allowedOrigins("http://192.168.248.135:5173",
+                                "http://localhost:5173",
+                                "https://tpe-framework-groupe10-16-convertonli.netlify.app")
                         .allowedMethods("GET")
                         .allowedHeaders("*");
             }
