@@ -70,5 +70,11 @@ public class ConversionController {
     public List<Conversion> getUserHistory(@RequestParam String userID) {
         return conversionServices.getConversionsByUserId(userID);
     }
+
+        @Operation(summary="Garder l'api en vie")
+        @GetMapping(path="ping", produces=APPLICATION_JSON_VALUE)
+        public String ping(){
+                return "pong";
+        }
 }
 
